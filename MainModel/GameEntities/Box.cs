@@ -8,4 +8,6 @@ public class Box
     {
         Coordinates = coordinates;
     }
+    
+    public void MoveTo(Point newCoordinates) => Coordinates = newCoordinates;
 }

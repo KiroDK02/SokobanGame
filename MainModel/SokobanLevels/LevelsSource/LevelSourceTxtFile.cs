@@ -4,15 +4,17 @@ namespace MainModel.SokobanLevels.LevelsSource;
 
 public class LevelSourceTxtFile : ILevelSource
 {
-    private string[] _levelsFiles;
+    private readonly string[] _levelsFiles;
     private int _currentFile = 0;
 
+    public bool HasMoreLevels => _currentFile < _levelsFiles.Length;
+    
     public LevelSourceTxtFile(string directoryPath)
     {
         _levelsFiles = Directory.GetFiles(directoryPath, "*.txt");
     }
 
-    public LevelData GetNextLevel()
+    public LevelData GetNewLevel()
     {
         using var streamReader = new StreamReader(_levelsFiles[_currentFile]);
         var levelMap = new List<string>();

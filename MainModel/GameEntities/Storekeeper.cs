@@ -8,4 +8,6 @@ public class Storekeeper
     {
         Coordinates = coordinates;
     }
+
+    public void MoveTo(Point newCoordinates) => Coordinates = newCoordinates;
 }

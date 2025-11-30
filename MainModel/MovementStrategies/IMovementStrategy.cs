@@ -4,5 +4,21 @@ namespace MainModel.MovementStrategies;
 
 public interface IMovementStrategy
 {
-    void Move(Level level);
+    MovementResult TryMoveIn(ILevel level, Direction direction);
+}
+
+public enum Direction
+{
+    Up,
+    Down,
+    Left,
+    Right
+}
+
+public enum MovementResult
+{
+    Moved,
+    Blocked,
+    PushedBox,
+    PushedBoxOnTarget // ?
 }

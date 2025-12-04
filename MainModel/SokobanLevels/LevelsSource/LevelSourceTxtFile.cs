@@ -11,6 +11,9 @@ public class LevelSourceTxtFile : ILevelSource
     
     public LevelSourceTxtFile(string directoryPath)
     {
+        if (!Directory.Exists(directoryPath))
+            throw new DirectoryNotFoundException($"Directory {directoryPath} was not found.");
+        
         _levelsFiles = Directory.GetFiles(directoryPath, "*.txt");
     }
 

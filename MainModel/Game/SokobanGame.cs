@@ -5,7 +5,7 @@ using MainModel.SokobanLevels.LevelsSource;
 
 namespace MainModel.Game;
 
-public class Game : IGame
+public class SokobanGame : IGame
 {
     private readonly ILevelSource _levelSource;
     private readonly ILevelParser _levelParser;
@@ -14,7 +14,7 @@ public class Game : IGame
 
     public GameSession? CurrentSession { get; private set; }
 
-    public Game(
+    public SokobanGame(
         ILevelSource levelSource,
         ILevelParser levelParser,
         ILevelMetadataParser levelMetadataParser,

@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainModel", "MainModel\MainModel.csproj", "{F8EF495A-F29F-4726-894F-958D5F79F7CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameController", "GameController\GameController.csproj", "{050485AB-64B6-4669-9C10-EEBB875C4ACD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameView", "GameView\GameView.csproj", "{BCD961F6-1B0B-4B07-A1B9-A5C0E60DFA0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{F8EF495A-F29F-4726-894F-958D5F79F7CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8EF495A-F29F-4726-894F-958D5F79F7CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8EF495A-F29F-4726-894F-958D5F79F7CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{050485AB-64B6-4669-9C10-EEBB875C4ACD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{050485AB-64B6-4669-9C10-EEBB875C4ACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{050485AB-64B6-4669-9C10-EEBB875C4ACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{050485AB-64B6-4669-9C10-EEBB875C4ACD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCD961F6-1B0B-4B07-A1B9-A5C0E60DFA0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCD961F6-1B0B-4B07-A1B9-A5C0E60DFA0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCD961F6-1B0B-4B07-A1B9-A5C0E60DFA0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCD961F6-1B0B-4B07-A1B9-A5C0E60DFA0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

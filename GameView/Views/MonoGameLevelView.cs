@@ -53,7 +53,7 @@ public class MonoGameLevelView : ILevelView
     
     private void DrawStaticObjects(ILevel level, int x, int y)
     {
-        var cell = level.GameField[x, y];
+        var cell = level.GameField[y, x];
         var cellTexture = 
             cell.IsWall 
             ? _wallTexture

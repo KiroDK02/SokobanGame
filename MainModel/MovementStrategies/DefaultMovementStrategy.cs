@@ -8,10 +8,10 @@ public class DefaultMovementStrategy : IMovementStrategy
     public MovementResult TryMoveIn(ILevel level, Direction direction)
     {
         var (dx, dy) = GetShifts(direction);
-        var skNewCoordinates = new Point(level.Storekeeper.Coordinates.X + dx, 
-                                              level.Storekeeper.Coordinates.Y + dy);
+        var skNewCoordinates = new Point(level.Storekeeper.Coordinates.X + dx,
+            level.Storekeeper.Coordinates.Y + dy);
 
-        if (level.GameField[skNewCoordinates.X, skNewCoordinates.Y].IsWall)
+        if (level.GameField[skNewCoordinates.Y, skNewCoordinates.X].IsWall)
             return MovementResult.Blocked;
 
         var box = level.Boxes.FirstOrDefault(box => box.Coordinates == skNewCoordinates);
@@ -20,7 +20,7 @@ public class DefaultMovementStrategy : IMovementStrategy
             level.Storekeeper.MoveTo(skNewCoordinates);
             return MovementResult.Moved;
         }
-        
+
         var boxNewCoordinates = new Point(skNewCoordinates.X + dx, skNewCoordinates.Y + dy);
 
         if (!IsPossibleMoveBoxTo(level, boxNewCoordinates))
@@ -29,14 +29,14 @@ public class DefaultMovementStrategy : IMovementStrategy
         level.Storekeeper.MoveTo(skNewCoordinates);
         box.MoveTo(boxNewCoordinates);
 
-        return level.GameField[boxNewCoordinates.X, boxNewCoordinates.Y].IsBoxTargetPlace
+        return level.GameField[boxNewCoordinates.Y, boxNewCoordinates.X].IsBoxTargetPlace
             ? MovementResult.PushedBoxOnTarget
             : MovementResult.PushedBox;
     }
 
     private static bool IsPossibleMoveBoxTo(ILevel level, Point target)
     {
-        if (level.GameField[target.X, target.Y].IsWall)
+        if (level.GameField[target.Y, target.X].IsWall)
             return false;
 
         return level.Boxes.SingleOrDefault(box => box.Coordinates == target) == null;

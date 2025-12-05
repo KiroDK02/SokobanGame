@@ -6,14 +6,14 @@ namespace GameController;
 public class GameController : IGameController
 {
     private readonly IGame _game;
-    
+
     public GameSession? CurrentSession => _game.CurrentSession;
 
     public GameController(IGame game)
     {
         _game = game;
     }
-    
+
     public void Start()
     {
         _game.Start();
@@ -27,10 +27,9 @@ public class GameController : IGameController
             Key.Down => Direction.Down,
             Key.Left => Direction.Left,
             Key.Right => Direction.Right,
-            _ => Direction.None
+            _ => throw new InvalidOperationException("Unknown key.")
         };
 
-        if (direction != Direction.None)
-            _game.TryMoveIn(direction);
+        _game.TryMoveIn(direction);
     }
 }

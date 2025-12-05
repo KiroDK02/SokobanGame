@@ -1,5 +1,4 @@
 using MainModel.GameEntities;
-using MainModel.SokobanLevels.Level;
 
 namespace MainModel.SokobanLevels.LevelParsers;
 
@@ -20,9 +19,9 @@ public class LevelParserFromTxt : ILevelParser
             var symbol = levelData.LevelMap[i][j];
             field[i, j] = ParseSymbolToCell(symbol);
             if (symbol == 'S')
-                storekeeper = new Storekeeper(new(i, j));
+                storekeeper = new Storekeeper(new(j, i));
             else if (symbol == 'B')
-                boxes.Add(new(new(i, j)));
+                boxes.Add(new(new(j, i)));
         }
         
         if (storekeeper == null)

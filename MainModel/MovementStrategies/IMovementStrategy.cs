@@ -12,8 +12,7 @@ public enum Direction
     Up,
     Down,
     Left,
-    Right,
-    None
+    Right
 }
 
 public enum MovementResult

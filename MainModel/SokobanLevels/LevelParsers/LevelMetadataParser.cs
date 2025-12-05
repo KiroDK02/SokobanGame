@@ -6,9 +6,11 @@ public class LevelMetadataParser : ILevelMetadataParser
     public LevelMetadata ParseLevelMetadata(LevelData levelData)
     {
         var metadata = levelData.Metadata;
-
-        if (!int.TryParse(metadata["playerSpeed"], out var playerSpeed))
-            throw new ArgumentException("Invalid value of player's speed.");
+        var playerSpeed = 0;
+        
+        if (metadata.TryGetValue("playerSpeed", out var speed))
+            if (!int.TryParse(speed, out playerSpeed))
+                throw new ArgumentException("Invalid value of player's speed.");
 
         return new(metadata["name"], playerSpeed);
     }

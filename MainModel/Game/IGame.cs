@@ -8,6 +8,6 @@ public interface IGame
 
     void Start();
     MovementResult TryMoveIn(Direction direction);
-    void LoadNewLevel();
+    void LoadLevel(int levelIndex);
     void RestartLevel();
 }

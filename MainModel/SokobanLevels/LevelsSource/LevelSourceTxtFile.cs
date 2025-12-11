@@ -5,9 +5,6 @@ namespace MainModel.SokobanLevels.LevelsSource;
 public class LevelSourceTxtFile : ILevelSource
 {
     private readonly string[] _levelsFiles;
-    private int _currentFile = 0;
-
-    public bool HasMoreLevels => _currentFile < _levelsFiles.Length;
     
     public LevelSourceTxtFile(string directoryPath)
     {
@@ -17,9 +14,9 @@ public class LevelSourceTxtFile : ILevelSource
         _levelsFiles = Directory.GetFiles(directoryPath, "*.txt");
     }
 
-    public LevelData GetNewLevel()
+    public LevelData GetNewLevel(int levelIndex)
     {
-        using var streamReader = new StreamReader(_levelsFiles[_currentFile]);
+        using var streamReader = new StreamReader(_levelsFiles[levelIndex]);
         var levelMap = new List<string>();
         var input = "";
 
@@ -34,6 +31,6 @@ public class LevelSourceTxtFile : ILevelSource
             .Select(line => line.Split(':', StringSplitOptions.RemoveEmptyEntries))
             .ToDictionary(data => data[0], data => data[1]);
         
-        return new(_currentFile++, [.. levelMap], metadata);
+        return new(levelIndex, [.. levelMap], metadata);
     }
 }

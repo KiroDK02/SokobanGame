@@ -29,9 +29,9 @@ public class DefaultMovementStrategy : IMovementStrategy
         level.Storekeeper.MoveTo(skNewCoordinates);
         box.MoveTo(boxNewCoordinates);
 
-        return level.GameField[boxNewCoordinates.Y, boxNewCoordinates.X].IsBoxTargetPlace
+        return MovementResult.Moved | (level.GameField[boxNewCoordinates.Y, boxNewCoordinates.X].IsBoxTargetPlace
             ? MovementResult.PushedBoxOnTarget
-            : MovementResult.PushedBox;
+            : MovementResult.PushedBox);
     }
 
     private static bool IsPossibleMoveBoxTo(ILevel level, Point target)

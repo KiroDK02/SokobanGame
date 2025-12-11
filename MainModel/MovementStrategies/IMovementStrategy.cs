@@ -15,10 +15,12 @@ public enum Direction
     Right
 }
 
+[Flags]
 public enum MovementResult
 {
-    Moved,
-    Blocked,
-    PushedBox,
-    PushedBoxOnTarget // ?
+    None = 0,
+    Moved = 1, 
+    Blocked = 2,
+    PushedBox = 4,
+    PushedBoxOnTarget = 8 // ?
 }

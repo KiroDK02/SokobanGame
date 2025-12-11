@@ -1,18 +1,23 @@
 ﻿using GameController;
-using MainModel.Game;
-using MainModel.MovementStrategies.MovementStrategyFactories;
-using MainModel.SokobanLevels.LevelParsers;
-using MainModel.SokobanLevels.LevelsSource;
+using GameView.Scenes;
+using MainModel.Game.GameSessionFactories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace GameView.Views;
 
+// TODO:
+// Реализовать сцену меню
+// Поменять инициализацию на создание сцены меню,
+// из которого будет расти создание уровня
+
 public class SokobanGameView : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
+
+    private SceneManager _sceneManager;
     
     private MonoGameLevelView _monoGameLevelView;
     private IGameController _gameController;
@@ -28,13 +33,8 @@ public class SokobanGameView : Game
 
     protected override void Initialize()
     {
-        var levelSource = new LevelSourceTxtFile("Content/Levels");
-        var levelParser = new LevelParserFromTxt();
-        var levelMetadataParser = new LevelMetadataParser();
-        var movementStrategyFactory = new DefaultMovementFactory();
-        
-        var game = new SokobanGame(levelSource, levelParser, levelMetadataParser, movementStrategyFactory);
-        _gameController = new GameController.GameController(game);
+        _gameController = new GameController.SokobanGameController(
+            TxtGameSessionFactory.GetInstance("Content/Levels"));
         _gameController.Start();
         
         _monoGameController = new MonoGameController(_gameController);
@@ -51,11 +51,8 @@ public class SokobanGameView : Game
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One)
-                .Buttons.Back
-            == ButtonState.Pressed
-            || Keyboard.GetState()
-                .IsKeyDown(Keys.Escape))
+        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
+            || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
         _monoGameController.Update();

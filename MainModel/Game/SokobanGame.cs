@@ -1,34 +1,22 @@
+using MainModel.Game.GameSessionFactories;
 using MainModel.MovementStrategies;
-using MainModel.MovementStrategies.MovementStrategyFactories;
-using MainModel.SokobanLevels.LevelParsers;
-using MainModel.SokobanLevels.LevelsSource;
 
 namespace MainModel.Game;
 
 public class SokobanGame : IGame
 {
-    private readonly ILevelSource _levelSource;
-    private readonly ILevelParser _levelParser;
-    private readonly ILevelMetadataParser _levelMetadataParser;
-    private readonly IMovementStrategyFactory _movementStrategyFactory;
+    private readonly IGameSessionFactory _sessionFactory;
 
     public GameSession? CurrentSession { get; private set; }
 
-    public SokobanGame(
-        ILevelSource levelSource,
-        ILevelParser levelParser,
-        ILevelMetadataParser levelMetadataParser,
-        IMovementStrategyFactory movementStrategyFactory)
+    public SokobanGame(IGameSessionFactory sessionFactory)
     {
-        _levelSource = levelSource;
-        _levelParser = levelParser;
-        _levelMetadataParser = levelMetadataParser;
-        _movementStrategyFactory = movementStrategyFactory;
+        _sessionFactory = sessionFactory;
     }
 
     public void Start()
     {
-        LoadNewLevel();
+        LoadLevel(0);
     }
 
     public MovementResult TryMoveIn(Direction direction)
@@ -37,22 +25,18 @@ public class SokobanGame : IGame
             return MovementResult.Blocked;
 
         var movementResult = CurrentSession.TryMoveIn(direction);
+        
+        if ((movementResult & MovementResult.Moved) != 0)
+            CurrentSession.StorekeeperMovements++;
+        if ((movementResult & MovementResult.PushedBox) != 0 
+            || (movementResult & MovementResult.PushedBoxOnTarget) != 0)
+            CurrentSession.BoxesMovements++;
 
         return movementResult;
     }
 
-    public void LoadNewLevel()
-    {
-        if (!_levelSource.HasMoreLevels)
-            throw new InvalidOperationException("No more levels available.");
-
-        var levelData = _levelSource.GetNewLevel();
-        var level = _levelParser.Parse(levelData);
-        var levelMetadata = _levelMetadataParser.ParseLevelMetadata(levelData);
-        var movementStrategy = _movementStrategyFactory.CreateMovementStrategy(levelMetadata);
-
-        CurrentSession = new GameSession(level, movementStrategy);
-    }
+    public void LoadLevel(int levelIndex) =>
+        CurrentSession = _sessionFactory.BuildLevel(levelIndex);
 
     // ??
     public void RestartLevel()

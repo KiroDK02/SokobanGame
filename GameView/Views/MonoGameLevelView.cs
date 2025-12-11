@@ -9,9 +9,10 @@ namespace GameView.Views;
 
 public class MonoGameLevelView : ILevelView
 {
+    private const int CellSize = 32;
+    
     private readonly Game _game;
     private SpriteBatch _spriteBatch;
-    private const int CellSize = 32;
     
     private Texture2D _playerTexture;
     private Texture2D _wallTexture;

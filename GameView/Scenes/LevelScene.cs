@@ -47,6 +47,6 @@ public class LevelScene : IGameScene
 
     public void Draw(GameTime gameTime)
     {
-        _levelRenderer.Render(_gameController.CurrentSession);
+        _levelRenderer.Render();
     }
 }

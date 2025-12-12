@@ -1,0 +1,6 @@
+#####
+# BT#
+# S#O
+####O
+[metadata]
+name:name1

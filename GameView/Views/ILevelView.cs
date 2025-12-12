@@ -1,10 +1,11 @@
-using MainModel.Game;
-using Microsoft.Xna.Framework.Content;
+using GameController;
 
 namespace GameView.Views;
 
 public interface ILevelView
 {
-    void Render(GameSession gameSession);
-    void LoadContent(ContentManager contentManager);
+    IGameController GameController { get; }
+    
+    void Render();
+    void LoadContent();
 }

@@ -1,5 +1,4 @@
-﻿using GameController;
-using GameView.Scenes;
+﻿using GameView.Scenes;
 using MainModel.Game.GameSessionFactories;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -14,39 +13,40 @@ namespace GameView.Views;
 
 public class SokobanGameView : Game
 {
-    private GraphicsDeviceManager _graphics;
+    private readonly GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
     private SceneManager _sceneManager;
-    
-    private MonoGameLevelView _monoGameLevelView;
-    private IGameController _gameController;
-    private MonoGameController _monoGameController;
     
     public SokobanGameView()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         Window.Title = "Sokoban";
+        Window.AllowUserResizing = true;
         IsMouseVisible = true;
     }
 
     protected override void Initialize()
     {
-        _gameController = new GameController.SokobanGameController(
-            TxtGameSessionFactory.GetInstance("Content/Levels"));
-        _gameController.Start();
-        
-        _monoGameController = new MonoGameController(_gameController);
-        _monoGameLevelView = new MonoGameLevelView(this);
-        
         base.Initialize();
+
+        _graphics.PreferredBackBufferHeight = 800;
+        _graphics.PreferredBackBufferWidth = 1600;
+        _graphics.ApplyChanges();
+
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        _sceneManager = new SceneManager();
+        _sceneManager.CurrentScene = new LevelMenuScene(
+            GraphicsDevice,
+            Content,
+            _sceneManager,
+            TxtGameSessionFactory.GetInstance("Content/Levels"));
     }
 
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
-        _monoGameLevelView.LoadContent(Content);
+        base.LoadContent();
     }
 
     protected override void Update(GameTime gameTime)
@@ -54,18 +54,18 @@ public class SokobanGameView : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
             || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
-
-        _monoGameController.Update();
+        
+        _sceneManager.Update(gameTime);
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
-
-        _monoGameLevelView.Render(_gameController.CurrentSession);
-
         base.Draw(gameTime);
+        
+        GraphicsDevice.Clear(Color.Green);
+
+        _sceneManager.Draw(gameTime);
     }
 }

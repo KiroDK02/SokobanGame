@@ -4,6 +4,8 @@ namespace MainModel.SokobanLevels.LevelsSource;
 
 public class LevelSourceTxtFile : ILevelSource
 {
+    public int LevelsCount => _levelsFiles.Length;
+    
     private readonly string[] _levelsFiles;
     
     public LevelSourceTxtFile(string directoryPath)

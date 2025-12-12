@@ -14,10 +14,7 @@ public class SokobanGame : IGame
         _sessionFactory = sessionFactory;
     }
 
-    public void Start()
-    {
-        LoadLevel(0);
-    }
+    public void Start() => LoadLevel(0);
 
     public MovementResult TryMoveIn(Direction direction)
     {

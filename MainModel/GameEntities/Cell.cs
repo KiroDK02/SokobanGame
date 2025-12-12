@@ -2,20 +2,20 @@ namespace MainModel.GameEntities;
 
 public class Cell
 {
-    public bool IsWall => CellType is CellTypeEnum.Wall;
-    public bool IsBoxTargetPlace => CellType is CellTypeEnum.BoxTargetPlace;
-    public CellTypeEnum CellType { get; }
+    public bool IsWall => CellType is GameEntities.CellType.Wall;
+    public bool IsBoxTargetPlace => CellType is GameEntities.CellType.BoxTargetPlace;
+    public CellType CellType { get; }
 
-    public Cell(CellTypeEnum cellType)
+    public Cell(CellType cellType)
     {
         CellType = cellType;
     }
 }
 
-public enum CellTypeEnum
+public enum CellType
 {
     Wall,
     BoxTargetPlace,
-    Emptiness,
+    Floor,
     OutField
 }

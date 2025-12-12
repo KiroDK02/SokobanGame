@@ -34,10 +34,10 @@ public class LevelParserFromTxt : ILevelParser
     {
         return symbol switch
         {
-            '#' => new(CellTypeEnum.Wall),
-            'T' => new(CellTypeEnum.BoxTargetPlace),
-            'O' => new(CellTypeEnum.OutField),
-            _ => new(CellTypeEnum.Emptiness)
+            '#' => new(CellType.Wall),
+            'T' => new(CellType.BoxTargetPlace),
+            'O' => new(CellType.OutField),
+            _ => new(CellType.Floor)
         };
     }
 }

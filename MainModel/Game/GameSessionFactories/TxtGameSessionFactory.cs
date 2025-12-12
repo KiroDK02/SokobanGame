@@ -6,19 +6,24 @@ namespace MainModel.Game.GameSessionFactories;
 
 public class TxtGameSessionFactory : IGameSessionFactory
 {
+    public HashSet<int> CompletedLevels { get; }
+    public int LevelsCount => _levelSource.LevelsCount;
+
     private static TxtGameSessionFactory? _instance;
 
     private readonly LevelSourceTxtFile _levelSource;
     private readonly LevelParserFromTxt _levelParser;
     private readonly LevelMetadataParser _levelMetadataParser;
     private readonly MovementStrategyFactory _movementStrategyStrategyFactory;
-
+    
     private TxtGameSessionFactory(string directoryName)
     {
         _levelSource = new LevelSourceTxtFile(directoryName);
         _levelParser = new LevelParserFromTxt();
         _levelMetadataParser = new LevelMetadataParser();
         _movementStrategyStrategyFactory = new MovementStrategyFactory();
+        
+        CompletedLevels = new(LevelsCount);
     }
 
     public GameSession BuildLevel(int levelIndex)
@@ -28,7 +33,7 @@ public class TxtGameSessionFactory : IGameSessionFactory
         var levelMetadata = _levelMetadataParser.ParseLevelMetadata(levelData);
         var movementStrategy = _movementStrategyStrategyFactory.CreateMovementStrategy(levelMetadata);
         
-        return new(level, movementStrategy);
+        return new(levelIndex, level, movementStrategy);
     }
 
     public static TxtGameSessionFactory GetInstance(string directoryName)

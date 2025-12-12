@@ -8,6 +8,7 @@ public interface IGameController
     GameSession? CurrentSession { get; }
     
     void Start();
+    void LoadLevel(int levelIndex);
     void OnKeyPressed(Key key);
 }
 

@@ -6,7 +6,7 @@ public interface IGame
 {
     GameSession? CurrentSession { get; }
 
-    void Start();
+    void Start(); // ??
     MovementResult TryMoveIn(Direction direction);
     void LoadLevel(int levelIndex);
     void RestartLevel();

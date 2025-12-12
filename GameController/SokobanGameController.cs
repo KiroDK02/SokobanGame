@@ -6,19 +6,18 @@ namespace GameController;
 
 public class SokobanGameController : IGameController
 {
-    private readonly SokobanGame _game;
-
     public GameSession? CurrentSession => _game.CurrentSession;
+    
+    private readonly SokobanGame _game;
 
     public SokobanGameController(IGameSessionFactory sessionFactory)
     {
         _game = new(sessionFactory);
     }
 
-    public void Start()
-    {
-        _game.Start();
-    }
+    public void Start() => _game.Start();
+
+    public void LoadLevel(int levelIndex) => _game.LoadLevel(levelIndex);
 
     public void OnKeyPressed(Key key)
     {

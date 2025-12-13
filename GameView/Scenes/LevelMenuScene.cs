@@ -123,10 +123,10 @@ public class LevelMenuScene : IGameScene
     }
 
     private void SelectedLevelIndexAdd(int adding) =>
-        _selectedLevelIndex = int.Min(_selectedLevelIndex + adding, _gameSessionFactory.LevelsCount - 1);
+        _selectedLevelIndex = Math.Min(_selectedLevelIndex + adding, _gameSessionFactory.LevelsCount - 1);
 
     private void SelectedLevelIndexRemove(int removing) =>
-        _selectedLevelIndex = int.Max(_selectedLevelIndex - removing, 0);
+        _selectedLevelIndex = Math.Max(_selectedLevelIndex - removing, 0);
 
     private void SetColumnsAndRows(float width, float targetCellWidth)
     {
@@ -167,7 +167,7 @@ public class LevelMenuScene : IGameScene
 
         var scaleX = (currentButton.Width * TextPadding) / measuredString.X;
         var scaleY = (currentButton.Height * TextPadding) / measuredString.Y;
-        var scale = float.Min(scaleX, scaleY);
+        var scale = Math.Min(scaleX, scaleY);
 
         var sizeText = measuredString * scale;
         var positionText = new Vector2(

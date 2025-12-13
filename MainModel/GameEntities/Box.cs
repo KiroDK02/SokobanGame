@@ -10,4 +10,7 @@ public class Box
     }
     
     public void MoveTo(Point newCoordinates) => Coordinates = newCoordinates;
+
+    public bool IsBoxOnTarget(Cell[,] gameField) =>
+        gameField[Coordinates.Y, Coordinates.X].IsBoxTargetPlace;
 }

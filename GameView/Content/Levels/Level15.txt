@@ -1,0 +1,16 @@
+15
+OOOOOOOO#####OOOO
+OOOOOOOO#   #####
+OOOOOOOO# #B##  #
+OOOOOOOO#     B #
+######### ###   #
+#TTTT  ## B  B###
+#TTTT    B BB ##O
+#TTTT  ##B  B S#O
+#########  B  ##O
+OOOOOOOO# B B  #O
+OOOOOOOO### ## #O
+OOOOOOOOOO#    #O
+OOOOOOOOOO######O
+[metadata]
+name:name1

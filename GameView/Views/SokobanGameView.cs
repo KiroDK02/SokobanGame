@@ -29,13 +29,14 @@ public class SokobanGameView : Game
         _graphics.ApplyChanges();
 
         _sceneManager = new SceneManager(GraphicsDevice, Content);
-        
-        var levelMenuScene = new LevelMenuScene(
+
+        var mainMenuScene = new MainMenuScene(
+            TxtGameSessionFactory.GetInstance("Content/Levels"),
             _sceneManager,
-            TxtGameSessionFactory.GetInstance("Content/Levels"));
-        levelMenuScene.LoadContent();
+            Exit);
+        mainMenuScene.LoadContent();
         
-        _sceneManager.CurrentScene = levelMenuScene;
+        _sceneManager.CurrentScene = mainMenuScene;
     }
 
     protected override void LoadContent()
@@ -59,7 +60,7 @@ public class SokobanGameView : Game
         base.Draw(gameTime);
         
         GraphicsDevice.Clear(Color.CornflowerBlue);
-
+        
         _sceneManager.Draw(gameTime);
     }
 }

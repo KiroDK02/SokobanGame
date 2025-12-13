@@ -30,8 +30,9 @@ public class MonoGameLevelView : ILevelView
     private Texture2D _wallTexture;
     private Texture2D _floorTexture;
     private Texture2D _boxTexture;
+    private Texture2D _boxOnTargetTexture;
     private Texture2D _targetCellTexture;
-    private Texture2D _greenBlockTexture;
+    private Texture2D _blackBlockTexture;
     
     public MonoGameLevelView(GraphicsDevice graphicsDevice, ContentManager contentManager,
         IGameController gameController)
@@ -48,10 +49,11 @@ public class MonoGameLevelView : ILevelView
         _wallTexture = _contentManager.Load<Texture2D>("Textures/Wall");
         _floorTexture = _contentManager.Load<Texture2D>("Textures/Floor");
         _boxTexture = _contentManager.Load<Texture2D>("Textures/Box");
+        _boxOnTargetTexture = _contentManager.Load<Texture2D>("Textures/BoxOnTarget");
         _targetCellTexture = _contentManager.Load<Texture2D>("Textures/TargetCell");
         
-        _greenBlockTexture = new Texture2D(_graphicsDevice, 1, 1);
-        _greenBlockTexture.SetData([Color.Green]);
+        _blackBlockTexture = new Texture2D(_graphicsDevice, 1, 1);
+        _blackBlockTexture.SetData([Color.Black]);
         
         _spriteBatch = new SpriteBatch(_graphicsDevice);
     }
@@ -64,7 +66,7 @@ public class MonoGameLevelView : ILevelView
         
         PrepareToDraw();
 
-        _graphicsDevice.Clear(Color.Green);
+        _graphicsDevice.Clear(Color.Black);
         
         _spriteBatch.Begin();
 
@@ -108,7 +110,7 @@ public class MonoGameLevelView : ILevelView
             CellType.Wall => _wallTexture,
             CellType.BoxTargetPlace => _targetCellTexture,
             CellType.Floor => _floorTexture,
-            _ => _greenBlockTexture
+            _ => _blackBlockTexture
         };
         
         var (globalX, globalY) = GetGlobalCoordinates(x, y);
@@ -124,9 +126,12 @@ public class MonoGameLevelView : ILevelView
         foreach (var box in level.Boxes)
         {
             var (globalX, globalY) = GetGlobalCoordinates(box.Coordinates.X, box.Coordinates.Y);
-
+            var texture = box.IsBoxOnTarget(level.GameField)
+                ? _boxOnTargetTexture
+                : _boxTexture;
+            
             _spriteBatch.Draw(
-                _boxTexture,
+                texture,
                 new Rectangle(globalX, globalY, _cellSize, _cellSize),
                 Color.White);
         }
@@ -147,7 +152,7 @@ public class MonoGameLevelView : ILevelView
         var cellWidth = (int)Math.Floor(width / cellCountInRow);
         var cellHeight = (int)Math.Floor(height / cellCountInColumn);
 
-        return int.Max(MinCellSize, int.Min(int.Min(cellWidth, cellHeight), MaxCellSize));
+        return Math.Max(MinCellSize, int.Min(int.Min(cellWidth, cellHeight), MaxCellSize));
     }
 
     private (int globalX, int globalY) GetGlobalCoordinates(int x, int y) =>

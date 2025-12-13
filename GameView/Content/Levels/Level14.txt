@@ -1,6 +1,16 @@
-#####
-# BT#
-# S#O
-####O
+14
+OOOOOOOOOOOOOO########
+OOOOOOOOOOOOOO#  TTTT#
+OOO############  TTTT#
+OOO#    #  B B   TTTT#
+OOO# BBB#B  B #  TTTT#
+OOO#  B     B #  TTTT#
+OOO# BB #B B B########
+####  B #     #OOOOOOO
+#   # #########OOOOOOO
+#    B  ##OOOOOOOOOOOO
+# BB#BB S#OOOOOOOOOOOO
+#   #   ##OOOOOOOOOOOO
+#########OOOOOOOOOOOOO
 [metadata]
 name:name1

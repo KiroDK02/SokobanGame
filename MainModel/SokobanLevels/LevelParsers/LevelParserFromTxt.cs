@@ -4,6 +4,12 @@ namespace MainModel.SokobanLevels.LevelParsers;
 
 public class LevelParserFromTxt : ILevelParser
 {
+    // # - wall
+    // S - storekeeper
+    // B - box
+    // T - target
+    // O - outfield cell
+    // любой другой символ - floor
     public Level.Level Parse(LevelData levelData)
     {
         var height = levelData.LevelMap.Length;

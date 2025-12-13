@@ -64,6 +64,8 @@ public class MonoGameLevelView : ILevelView
         
         PrepareToDraw();
 
+        _graphicsDevice.Clear(Color.Green);
+        
         _spriteBatch.Begin();
 
         for (int y = 0; y < level.Height; y++)

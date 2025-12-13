@@ -1,20 +1,13 @@
 ﻿using GameView.Scenes;
 using MainModel.Game.GameSessionFactories;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace GameView.Views;
 
-// TODO:
-// Реализовать сцену меню
-// Поменять инициализацию на создание сцены меню,
-// из которого будет расти создание уровня
-
 public class SokobanGameView : Game
 {
     private readonly GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
 
     private SceneManager _sceneManager;
     
@@ -35,13 +28,14 @@ public class SokobanGameView : Game
         _graphics.PreferredBackBufferWidth = 1600;
         _graphics.ApplyChanges();
 
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
-        _sceneManager = new SceneManager();
-        _sceneManager.CurrentScene = new LevelMenuScene(
-            GraphicsDevice,
-            Content,
+        _sceneManager = new SceneManager(GraphicsDevice, Content);
+        
+        var levelMenuScene = new LevelMenuScene(
             _sceneManager,
             TxtGameSessionFactory.GetInstance("Content/Levels"));
+        levelMenuScene.LoadContent();
+        
+        _sceneManager.CurrentScene = levelMenuScene;
     }
 
     protected override void LoadContent()
@@ -64,7 +58,7 @@ public class SokobanGameView : Game
     {
         base.Draw(gameTime);
         
-        GraphicsDevice.Clear(Color.Green);
+        GraphicsDevice.Clear(Color.CornflowerBlue);
 
         _sceneManager.Draw(gameTime);
     }

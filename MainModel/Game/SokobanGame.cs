@@ -24,10 +24,10 @@ public class SokobanGame : IGame
         var movementResult = CurrentSession.TryMoveIn(direction);
         
         if ((movementResult & MovementResult.Moved) != 0)
-            CurrentSession.StorekeeperMovements++;
+            CurrentSession.LevelStatistics.StorekeeperMovements++;
         if ((movementResult & MovementResult.PushedBox) != 0 
             || (movementResult & MovementResult.PushedBoxOnTarget) != 0)
-            CurrentSession.BoxesMovements++;
+            CurrentSession.LevelStatistics.BoxesMovements++;
 
         return movementResult;
     }

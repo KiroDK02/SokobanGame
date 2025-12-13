@@ -3,7 +3,6 @@ using GameController;
 using GameView.Views;
 using MainModel.Game.GameSessionFactories;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -19,15 +18,12 @@ public class LevelMenuScene : IGameScene
     private const float WidthRectangleSizePart = 0.1f;
     private const float HeightRectangleSizePart = 0.1f;
 
-    private readonly GraphicsDevice _graphicsDevice;
-    private readonly ContentManager _contentManager;
-
     private readonly SceneManager _sceneManager;
     private readonly IGameSessionFactory _gameSessionFactory;
 
     private readonly SpriteBatch _spriteBatch;
-    private readonly SpriteFont _font;
     private readonly Texture2D _whitePixel;
+    private SpriteFont _font;
 
     private int _selectedLevelIndex;
     private int _columnsCount;
@@ -38,20 +34,20 @@ public class LevelMenuScene : IGameScene
     private KeyboardState _previousKeyboardState;
     
     public LevelMenuScene(
-        GraphicsDevice graphicsDevice,
-        ContentManager contentManager,
         SceneManager sceneManager,
         IGameSessionFactory gameSessionFactory)
     {
-        _graphicsDevice = graphicsDevice;
-        _contentManager = contentManager;
         _sceneManager = sceneManager;
         _gameSessionFactory = gameSessionFactory;
 
-        _spriteBatch = new SpriteBatch(graphicsDevice);
-        _font = _contentManager.Load<SpriteFont>("Fonts/UIFontMenuScene");
-        _whitePixel = new(_graphicsDevice, 1, 1);
+        _spriteBatch = new SpriteBatch(_sceneManager.GraphicsDevice);
+        _whitePixel = new(_sceneManager.GraphicsDevice, 1, 1);
         _whitePixel.SetData([Color.White]);
+    }
+
+    public void LoadContent()
+    {
+        _font = _sceneManager.ContentManager.Load<SpriteFont>("Fonts/fontSokoban");
     }
 
     public void Update(GameTime gameTime)
@@ -88,7 +84,10 @@ public class LevelMenuScene : IGameScene
     private void BuildLevel()
     {
         var gameController = new SokobanGameController(_gameSessionFactory);
-        var levelRenderer = new MonoGameLevelView(_graphicsDevice, _contentManager, gameController);
+        var levelRenderer = new MonoGameLevelView(
+            _sceneManager.GraphicsDevice,
+            _sceneManager.ContentManager,
+            gameController);
         var monogameController = new MonoGameController(gameController);
 
         gameController.LoadLevel(_selectedLevelIndex);
@@ -97,6 +96,7 @@ public class LevelMenuScene : IGameScene
         _sceneManager.CurrentScene = new LevelScene(
             levelRenderer,
             gameController,
+            _gameSessionFactory,
             monogameController,
             _sceneManager,
             _selectedLevelIndex);
@@ -104,8 +104,8 @@ public class LevelMenuScene : IGameScene
 
     private void PrepareToDraw()
     {
-        var windowWidth = _graphicsDevice.Viewport.Width;
-        var windowHeight = _graphicsDevice.Viewport.Height;
+        var windowWidth = _sceneManager.GraphicsDevice.Viewport.Width;
+        var windowHeight = _sceneManager.GraphicsDevice.Viewport.Height;
 
         var width = windowWidth * (1.0f - 2 * HorizontalPaddingPart);
         var height = windowHeight * (1.0f - 2 * VerticalPaddingPart);

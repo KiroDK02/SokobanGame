@@ -9,7 +9,7 @@ public class Level : ILevel
     public HashSet<Box> Boxes { get; }
 
     public bool IsFinish => 
-        Boxes.All(box => GameField[box.Coordinates.X, box.Coordinates.Y].CellType == CellType.BoxTargetPlace);
+        Boxes.All(box => GameField[box.Coordinates.Y, box.Coordinates.X].CellType == CellType.BoxTargetPlace);
 
     public int Width { get; }
     public int Height { get; }

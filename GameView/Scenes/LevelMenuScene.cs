@@ -27,7 +27,6 @@ public class LevelMenuScene : IGameScene
 
     private int _selectedLevelIndex;
     private int _columnsCount;
-    private int _rowsCount;
 
     private Rectangle[] _cells;
 
@@ -131,7 +130,6 @@ public class LevelMenuScene : IGameScene
     private void SetColumnsAndRows(float width, float targetCellWidth)
     {
         _columnsCount = int.Min(_gameSessionFactory.LevelsCount, int.Max(1, (int)(width / targetCellWidth)));
-        _rowsCount = (int)Math.Ceiling(_gameSessionFactory.LevelsCount / (float)_columnsCount);
     }
 
     private void BuildCells(

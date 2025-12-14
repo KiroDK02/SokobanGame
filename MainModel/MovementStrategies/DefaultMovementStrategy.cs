@@ -1,4 +1,3 @@
-using MainModel.GameEntities;
 using MainModel.SokobanLevels.Level;
 
 namespace MainModel.MovementStrategies;

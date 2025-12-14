@@ -1,5 +1,3 @@
-using MainModel.SokobanLevels.Level;
-
 namespace MainModel.SokobanLevels.LevelParsers;
 
 public interface ILevelParser

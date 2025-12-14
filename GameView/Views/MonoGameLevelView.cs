@@ -147,6 +147,9 @@ public class MonoGameLevelView : ILevelView
             Color.White);
     }
 
+    private (int globalX, int globalY) GetGlobalCoordinates(int x, int y) =>
+        (_offsetX + x * _cellSize, _offsetY + y * _cellSize);
+
     private static int GetCellSize(float width, float height, int cellCountInRow, int cellCountInColumn)
     {
         var cellWidth = (int)Math.Floor(width / cellCountInRow);
@@ -154,7 +157,4 @@ public class MonoGameLevelView : ILevelView
 
         return Math.Max(MinCellSize, int.Min(int.Min(cellWidth, cellHeight), MaxCellSize));
     }
-
-    private (int globalX, int globalY) GetGlobalCoordinates(int x, int y) =>
-        (_offsetX + x * _cellSize, _offsetY + y * _cellSize);
 }

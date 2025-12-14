@@ -1,5 +1,4 @@
 ﻿using MainModel.Game;
-using MainModel.MovementStrategies;
 
 namespace GameController;
 

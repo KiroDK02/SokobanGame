@@ -5,7 +5,7 @@ namespace MainModel.SokobanLevels.Level;
 public class Level : ILevel
 {
     public Cell[,] GameField { get; }
-    public Storekeeper Storekeeper { get; set; }
+    public Storekeeper Storekeeper { get; }
     public HashSet<Box> Boxes { get; }
 
     public bool IsFinish => 

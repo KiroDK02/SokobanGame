@@ -2,7 +2,6 @@ namespace MainModel.SokobanLevels;
 
 // По идеи можно сюда добавлять что-нибубь,
 // какие-нибудь новые фичи (массу ящиков например),
-// расширяемая штука выходит я думаю
 public class LevelMetadata
 {
     public string Name { get; }

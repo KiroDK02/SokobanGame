@@ -8,6 +8,6 @@ public interface ILevel
     int Width { get; }
     int Height { get; }
     Cell[,] GameField { get; }
-    Storekeeper Storekeeper { get; set; }
+    Storekeeper Storekeeper { get; }
     HashSet<Box> Boxes { get; }
 }

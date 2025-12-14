@@ -26,9 +26,9 @@ public class MainMenuScene : IGameScene
     private readonly SceneManager _sceneManager;
     private readonly Action _exitAction;
 
-    private string[] _buttonsText;
+    private readonly string[] _buttonsText;
     private Rectangle _panelButtons;
-    private Rectangle[] _buttons = new Rectangle[ButtonsCount];
+    private readonly Rectangle[] _buttons = new Rectangle[ButtonsCount];
     private int _selectedButtonIndex;
     private KeyboardState _previousKeyboardState;
 
